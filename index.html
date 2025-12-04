@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TaskTracker - Task Management Consolidated</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="branding">
+        <span class="logo-mark">TT</span>
+        <span class="logo-text">TaskTracker</span>
+      </div>
+    
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#tasks">Tasks</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="hero-inner">
+        <h1>Track what tasks you have coming up soon, later, or leisurely.</h1>
+        <p class="hero-text">
+          TaskTracker is a simple page for students who want one place to write tasks,
+          see what matters today or in the future, and cross things off without making it complicated.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary-btn" href="#tasks">Start Adding Tasks</a>
+          <a class="btn secondary-btn" href="#about">How do I use this?</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tasks">
+      <div class="section-inner">
+        <h2>Tracking your tasks</h2>
+        <p class="section-intro">
+          Below, you can write what tasks you have to get done, when they need to be done by, how long
+          they'll take, and how urgent they are. When you complete a task, hit the "Done" button to remove it.
+          It's like a computerized to-do list!
+        </p>
+
+        <form class="task-form" id="task-form">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="task-title">Task</label>
+              <input
+                type="text"
+                id="task-title"
+                name="task-title"
+                required
+                placeholder="Write draft, finish questions, send email..."
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="task-context">Class</label>
+              <input
+                type="text"
+                id="task-context"
+                name="task-context"
+                required
+                placeholder="Biology, work, advisor, etc."
+              >
+            </div>
+
+            <div class="form-field">
+              <label for="task-due">Due: Date and Time</label>
+              <input
+                type="datetime-local"
+                id="task-due"
+                name="task-due"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="task-estimate">Time Estimate</label>
+              <input
+                type="number"
+                id="task-estimate"
+                name="task-estimate"
+                min="5"
+                step="5"
+                placeholder="30"
+              >
+            </div>
+
+            <div class="form-field">
+              <label for="task-priority">Urgency Level</label>
+              <select id="task-priority" name="task-priority">
+                <option value="today">ASAP</option>
+                <option value="soon">Coming Soon</option>
+                <option value="whenever">Earliest Convenience</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn primary-btn form-submit-btn">
+            Add Task
+          </button>
+        </form>
+
+        <div class="task-list-wrapper">
+          <p class="empty-state" id="empty-state">
+            No tasks yet. Add one above and it will show up down here.
+          </p>
+
+          <div class="task-grid" id="task-list">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="about">
+      <div class="section-inner">
+        <h2>What was this page made for?</h2>
+        <p>
+          I made this website in an attempt to simplify task management for students like myself. Outlook is helpful,
+          but I find it easier to put all of my tasks and exams in one place so I know where to look when planning
+          my days, weeks, and perhaps months.
+        </p>
+        <p>
+          The idea is pretty simple. Write down what you need to do and when its due, tag how urgent it feels, and give
+          yourself a rough time estimate so you can plan accordingly.
+        </p>
+
+        <div class="about-grid">
+          <article class="about-card">
+            <h3>Why so minimalistic?</h3>
+            <p>
+              Typically students use outlook to schedule out classes, exams, meetings, tasks, etc. I find that simplifying
+              the process of tracking tasks into simple to-do this such as list is much more helpful in getting ahead,
+              allowing time to relax, or even preparing for going out of town.
+            </p>
+          </article>
+
+          <article class="about-card">
+            <h3>Best ways to use it?</h3>
+            <p>
+              Depending on how you like to plan, you can use this site on a certain day of the week to prepare for the week
+              or even month ahead. Some students may put tasks into the tracker to get everything done at once in order to
+              cram before a deadline, while others may use it to prepare for the future and avoid stress. Either way, it's up
+              to you!
+            </p>
+          </article>
+
+          <article class="about-card">
+            <h3>Why does it look so plain?</h3>
+            <p>
+              The design is kept intentionally simple to avoid attracting too much attention away from the tasks themselves. 
+              Putting the tasks in a simple format allows for quick decision-making on what to do next without getting distracted.
+              The color palette is kept minimal as well to not overwhelm students, especially during stressful times or midnight
+              study sessions.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; 2025 TaskTracker</p>
+    </div>
+  </footer>
+
+  <script>
+    const taskForm = document.getElementById('task-form');
+    const taskList = document.getElementById('task-list');
+    const emptyState = document.getElementById('empty-state');
+
+    function updateEmptyMessage() {
+      if (taskList.children.length === 0) {
+        emptyState.style.display = 'block';
+      } else {
+        emptyState.style.display = 'none';
+      }
+    }
+
+    taskForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const titleInput = document.getElementById('task-title');
+      const contextInput = document.getElementById('task-context');
+      const dueInput = document.getElementById('task-due');
+      const estimateInput = document.getElementById('task-estimate');
+      const priorityInput = document.getElementById('task-priority');
+
+      const title = titleInput.value.trim();
+      const context = contextInput.value.trim();
+      const due = dueInput.value;
+      const estimate = estimateInput.value;
+      const priority = priorityInput.value;
+
+      if (!title || !context) {
+        return;
+      }
+
+      let priorityText = 'Today';
+      let priorityClass = 'priority-today';
+
+      if (priority === 'soon') {
+        priorityText = 'Soon';
+        priorityClass = 'priority-soon';
+      } else if (priority === 'whenever') {
+        priorityText = 'Whenever';
+        priorityClass = 'priority-whenever';
+      }
+
+      let metaParts = [];
+
+      if (due) {
+        const readableDue = due.replace('T', ' ');
+        metaParts.push('Due: ' + readableDue);
+      }
+
+      if (estimate) {
+        metaParts.push('~' + estimate + ' min');
+      }
+
+      const metaText = metaParts.join(' · ');
+
+      const html = `
+        <article class="task-card">
+          <header class="task-card-header">
+            <span class="priority-tag ${priorityClass}">${priorityText}</span>
+            <span class="task-context-text">${context}</span>
+          </header>
+          <h3 class="task-title-text">${title}</h3>
+          <p class="task-meta-text">${metaText}</p>
+          <button type="button" class="task-delete-btn" aria-label="Delete task">Done ✕</button>
+        </article>
+      `;
+
+      taskList.insertAdjacentHTML('afterbegin', html);
+
+      taskForm.reset();
+      titleInput.focus();
+      updateEmptyMessage();
+    });
+
+    taskList.addEventListener('click', function (event) {
+      if (event.target.classList.contains('task-delete-btn')) {
+        const card = event.target.closest('.task-card');
+        if (card) {
+          card.remove();
+          updateEmptyMessage();
+        }
+      }
+    });
+
+    updateEmptyMessage();
+  </script>
+</body>
+</html>
